@@ -32,7 +32,9 @@ if ("serviceWorker" in navigator) navigator.serviceWorker.register("worker.js").
     "type": "js",
     "launch": "main",
     "preload": [
-        "ui"
+        "ui",
+        "swap",
+        "explore"
     ],
     "debug": true
 }

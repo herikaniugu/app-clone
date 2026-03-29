@@ -150,6 +150,7 @@ App.source.explore = function() {
         var home = Block().padding(12).cursor(Type.POINTER).into(bottom).weight(1);
         Vector(24, 24).view("0 0 24 24").child("path", function(attr) { attr("d", "M12 3 4 9v12h5v-7h6v7h5V9z"); attr("fill", Color.GRAY); }).into(home);
         home.clicked(function() {
+            App.source.main();
         });
 
         // WALLET
@@ -159,6 +160,9 @@ App.source.explore = function() {
         // SWAP
         var swap = Block().padding(12).cursor(Type.POINTER).into(bottom).weight(1);
         Vector(24, 24).view("0 0 24 24").child("path", function(attr) { attr("d", "M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2m0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8"); attr("fill", Color.GRAY); }).into(swap);
+        swap.clicked(function() {
+            App.source.swap();
+        });
 
         // CHAT
         var chat = Block().padding(12).cursor(Type.POINTER).into(bottom).weight(1);
@@ -167,5 +171,8 @@ App.source.explore = function() {
         // EXPLORE
         var explore = Block().padding(12).cursor(Type.POINTER).into(bottom).weight(1);
         Vector(24, 24).view("0 0 24 24").child("path", function(attr) { attr("d", "M15.5,14h-0.79l-0.28,-0.27C15.41,12.59 16,11.11 16,9.5 16,5.91 13.09,3 9.5,3S3,5.91 3,9.5 5.91,16 9.5,16c1.61,0 3.09,-0.59 4.23,-1.57l0.27,0.28v0.79l5,4.99L20.49,19l-4.99,-5zM9.5,14C7.01,14 5,11.99 5,9.5S7.01,5 9.5,5 14,7.01 14,9.5 11.99,14 9.5,14z"); attr("fill", App.value.purple); }).into(explore);
+        explore.clicked(function() {
+            App.source.explore();
+        });
     });
 };
