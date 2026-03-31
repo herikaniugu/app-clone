@@ -1,7 +1,7 @@
 {
     "name": "Phantom",
     "short_name": "Phantom",
-    "start_url": "https://herikaniugu.github.io/app-clone/phantom/index.html",
+    "start_url": "/app-clone/phantom/index.html",
     "display": "standalone",
     "background_color": "#000000",
     "theme_color": "#000000",

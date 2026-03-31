@@ -1,8 +1,8 @@
 const CACHE_NAME = "phantom-cache-v1";
 const urls = [
     "/",
-    "/index.html",
-    "/engine.js"
+    "index.html",
+    "engine.js"
 ];
 
 // Install

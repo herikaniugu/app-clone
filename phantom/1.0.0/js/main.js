@@ -5,6 +5,12 @@ App.source.main = function() {
 
     // DEFINE
     App.value = {
+        pull: {
+            active: false,
+            distance: 0,
+            max: 120,
+            threshold: 80
+        },
         black: Color.value(0x0D0D0D),
         dark: Color.value(0x1A1A1A),
         darker: Color.value(0x2A2A2A),
@@ -54,6 +60,47 @@ App.source.main = function() {
 
     // MAIN
     App.view.main = Layout().width(Type.FILL).height(Type.FILL).overflowY(Type.AUTO).padding(6, 12).align("left").into(application).weight(1);
+
+    // SPINNER
+    var container = Layout().width(Type.FILL).height(0).align(Align.CENTER).position("fixed").style("transition: height 0.2s;").into(App.view.main);
+    var spinner = Block().width(32).height(32).radius(50).margin(6).display(Type.NONE).border("3px solid #ccc").borderTop("3px solid #3498db").animation("spin 1s linear infinite").into(container);
+    var touch = Device.touch(App.view.main.get());
+    Style().text("@keyframes spin { to { transform: rotate(360deg); } }");
+    touch.down(function(e, input) {
+        if (window.scrollY === 0) {
+            App.value.pull.active = true;
+            App.value.pull.distance = 0;
+        }
+    });
+    touch.move(function(e, input) {
+        if (!App.value.pull.active) return;
+        var item = input.each[0];
+        if (!item || !item.down) return;
+        App.value.pull.distance += Math.abs(item.dy);
+        var height = Math.min(App.value.pull.distance * 0.5, App.value.pull.max);
+        console.log(height);
+        container.height(height);
+        spinner.display(height > App.value.pull.threshold ? Type.BLOCK : Type.NONE);
+    });
+    touch.up(function() {
+        if (!App.value.pull.active) return;
+        App.value.pull.active = false;
+        if (App.value.pull.distance * 0.5 > App.value.pull.threshold) {
+            container.height(80);
+            spinner.display(Type.BLOCK);
+            console.log(1);
+            Wait(function() {
+                location.reload();
+                container.height(0);
+                spinner.display(Type.NONE);
+                console.log(2);
+            });
+        } else {
+            container.height(0);
+            spinner.display(Type.NONE);
+            console.log(3);
+        }
+    });
 
     // BALANCE
     Block().size(24).text("$11,300.00").into(Layout().padding(6).into(App.view.main));
@@ -120,7 +167,7 @@ App.source.main = function() {
                 Block().size(12).color(Color.GRAY).text(each.gain).into(amount);
             });
         });
-    })
+    });
 
     // =======================================================================================================================
 
