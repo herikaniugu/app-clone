@@ -62,7 +62,7 @@ App.source.main = function() {
     App.view.main = Layout().width(Type.FILL).height(Type.FILL).overflowY(Type.AUTO).padding(6, 12).align("left").into(application).weight(1);
 
     // SPINNER
-    var container = Layout().width(Type.FILL).height(0).align(Align.CENTER).position("fixed").style("transition: height 0.2s;").into(App.view.main);
+    var container = Layout().width(Type.FILL).height(0).align(Align.CENTER).style("transition: height 0.2s;").into(App.view.main);
     var spinner = Block().width(32).height(32).radius(50).margin(6).display(Type.NONE).border("3px solid #ccc").borderTop("3px solid #3498db").animation("spin 1s linear infinite").into(container);
     var touch = Device.touch(App.view.main.get());
     Style().text("@keyframes spin { to { transform: rotate(360deg); } }");
