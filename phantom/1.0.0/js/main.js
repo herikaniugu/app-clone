@@ -63,7 +63,7 @@ App.source.main = function() {
 
     // SPINNER
     var container = Layout().width(Type.FILL).height(0).align(Align.CENTER).style("transition: height 0.2s;").into(App.view.main);
-    var spinner = Block().width(32).height(32).radius(50).margin(6).display(Type.NONE).border("2px solid #e0e0e0").borderTop("2px solid transparent").animation("spin 1s linear infinite").into(container);
+    var spinner = Block().width(24).height(24).radius(50).margin(6).display(Type.NONE).border("4px solid #363636").borderTop("4px solid transparent").animation("spin 1s linear infinite").into(container);
     var touch = Device.touch(App.view.main.get()); Style().text("@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }");
     touch.down(function(e, input) {
         if (window.scrollY === 0) {
@@ -77,7 +77,9 @@ App.source.main = function() {
         if (!item || !item.down) return;
         if (item.dy > 0) App.value.pull.distance += item.dy;
         // var height = Math.min(App.value.pull.distance * 0.5, App.value.pull.max);
-        var height = Math.min(App.value.pull.distance * 0.5 * (1 - height / App.value.pull.max), App.value.pull.max);
+        var raw = App.value.pull.distance * 0.5;
+        var resistance = 1 - Math.min(raw / App.value.pull.max, 1);
+        var height = Math.min(raw * resistance, App.value.pull.max);
         container.height(height);
         spinner.display(height > App.value.pull.threshold ? Type.BLOCK : Type.NONE);
         e.preventDefault();
